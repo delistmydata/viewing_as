@@ -1,3 +1,4 @@
+require "fileutils"
 require "rails"
 require "active_record/railtie"
 require "action_controller/railtie"
@@ -15,6 +16,8 @@ module Dummy
     config.eager_load = false
     config.secret_key_base = "dummy-secret-key-base-long-enough-for-the-cookie-jar-0123456789"
     config.hosts.clear
+    # log/ and tmp/ are gitignored, so a fresh checkout has neither.
+    %w[ log tmp ].each { |dir| FileUtils.mkdir_p(File.expand_path("../#{dir}", __dir__)) }
     config.logger = ActiveSupport::Logger.new(File.expand_path("../log/test.log", __dir__))
     config.active_support.deprecation = :stderr
     config.action_dispatch.show_exceptions = :rescuable
