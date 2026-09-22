@@ -15,9 +15,13 @@ Gem::Specification.new do |spec|
     generator; works with anything that can answer "who is signed in".
   DESC
   spec.license = "MIT"
+  spec.homepage = "https://github.com/delistmydata/viewing_as"
   spec.required_ruby_version = ">= 3.3"
 
   spec.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
+  spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
 
   spec.files = Dir["lib/**/*", "app/**/*", "LICENSE.txt", "README.md", "CHANGELOG.md"]
   spec.require_paths = [ "lib" ]

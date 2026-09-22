@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 (unreleased)
+## 0.1.0 (2026-09-22)
 
 First release. Extracted from a production Rails 8.1 app, where it had run
 since 2026-09 with the same request specs that ship here.
