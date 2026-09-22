@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+gem "rails", "~> 8.0.0"
+gem "sqlite3", ">= 2.1"
+gem "bcrypt"
+gem "rspec-rails", "~> 8.0"
+
+# json 3.0 made parse options keyword-only; Rails <= 8.1.3 still passes a Hash.
+gem "json", "< 3"

@@ -1,0 +1,20 @@
+class CreateViewingAsEvents < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    create_table :viewing_as_events do |t|
+      # Nullified, not cascaded, when the admin's account goes: the row has to
+      # outlive the person it names. admin_email is what views should show.
+      t.references :admin_user, foreign_key: { to_table: :<%= users_table %>, on_delete: :nullify }
+      t.string :admin_email
+      t.references :user, null: false, foreign_key: { to_table: :<%= users_table %>, on_delete: :cascade }
+      t.string :kind, null: false
+      t.string :detail
+      t.string :ip_address
+      t.string :user_agent
+      t.datetime :created_at, null: false
+    end
+
+    add_index :viewing_as_events, [ :admin_user_id, :user_id, :kind, :created_at ],
+              name: "index_viewing_as_events_on_dedupe"
+    add_index :viewing_as_events, [ :user_id, :created_at ]
+  end
+end

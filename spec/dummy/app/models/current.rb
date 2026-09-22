@@ -1,0 +1,6 @@
+class Current < ActiveSupport::CurrentAttributes
+  prepend ViewingAs::CurrentUser
+
+  attribute :session
+  delegate :user, to: :session, allow_nil: true
+end

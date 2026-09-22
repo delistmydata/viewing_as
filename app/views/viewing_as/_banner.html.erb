@@ -1,0 +1,21 @@
+<%# Self-gating: render it unconditionally from the layout. Unstyled on purpose;
+    copy it into app/views/viewing_as/_banner.html.erb to change the words or
+    add classes. Pass stop_path: if your stop route is named differently. %>
+<% if impersonating? %>
+  <div class="viewing-as-banner" role="status">
+    <span class="viewing-as-banner__text">
+      You are viewing <strong><%= ViewingAs.config.display.call(impersonated_user) %></strong>
+      as <%= ViewingAs.config.display.call(true_user) %>.
+      <% if impersonation_read_only? %>
+        Nothing you do here can change their account, and they can see a record of this visit.
+      <% else %>
+        Everything you do here is done as them, and they can see a record of this visit.
+      <% end %>
+      <% if impersonation_expires_at %>
+        Ends in <%= distance_of_time_in_words(Time.current, impersonation_expires_at) %>.
+      <% end %>
+    </span>
+    <%= button_to "Stop viewing", local_assigns.fetch(:stop_path) { stop_impersonation_path },
+                  method: :delete, class: "viewing-as-banner__stop" %>
+  </div>
+<% end %>
